@@ -11,9 +11,13 @@ import { WEXIN_ARTICLE_LIST } from '../constants/Urls';
 export function fetchArticles(categoryId, opt, pageNo, ext) {
     return dispatch => {
         dispatch(fetchArticleList(types.FETCH_ARTICLE_LIST, categoryId, opt, pageNo, ext));
-        return Http.get(`${WEXIN_ARTICLE_LIST}?typeId=${typeId}&page=${page}`).then((result) => {
+        return Http.get(`${WEXIN_ARTICLE_LIST}?typeId=${categoryId}&page=${page}`).then((result) => {
             dispatch(fetchArticleList(types.RECEIVE_ARTICLE_LIST, categoryId, opt, 
                 pageNo, ext, result.showapi_res_body.pagebean.contentlist));
+        }).catch((result) => {
+            dispatch(fetchArticleList(types.RECEIVE_ARTICLE_LIST, categoryId, opt, 
+                pageNo, ext, []));
+            Toast.show('网络发生错误，请重试');
         });
     }
 }
