@@ -1,33 +1,25 @@
-import * as types from '../constants/ActionTypes';
-import Toast from '../utils/Toast';
+import { FETCH_CATEGORYS_DATA_STATUS } from '../constants/ActionTypes';
 import Http from '../utils/Http';
 import { WEIXIN_ARTICLE_TYPE } from '../constants/Urls';
 import Storage from '../utils/Storage';
 
-function fetchTypeList() {
-    return {
-        type: types.FETCH_TYPE_LIST
-    }
-}
-
-function receiveTypeList(typeList) {
-    return {
-        type: types.RECEIVE_TYPE_LIST,
-        typeList
-    }
-}
-
-export default function fetchTypes() {
+function fetchCategory(typeObj) {
     return dispatch => {
-        dispatch(fetchTypeList());
+        dispatch({type: typeObj.START});
         return Http.get(WEIXIN_ARTICLE_TYPE).then((result) => {
-            dispatch(receiveTypeList(result.showapi_res_body.typeList));
-            Storage.save('typeList', result.showapi_res_body.typeList);
-            const errorMessage = result.showapi_res_error;
-            errorMessage && errorMessage !== '' && Toast.show(errorMessage);
-        }).catch(() => {
-            dispatch(receiveTypeList([]));
-            Toast.show('网络发生错误，请重试！');
-        })
+            dispatch({
+                type: typeObj.SUCCESS,
+                data: result.showapi_res_body.typeList
+            });
+        }).catch((error) => {
+            dispatch({
+                type: typeObj.FAILURE,
+                error
+            });
+        });
     }
+}
+
+export default function fetchCategoryList() {
+    return fetchCategory(FETCH_CATEGORYS_DATA_STATUS, ...arguments);
 }
