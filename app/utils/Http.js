@@ -1,5 +1,7 @@
+
+const HOST = 'http://apis.baidu.com/';
+
 export default class Http {
-    static HOST = 'http://apis.baidu.com/';
 
     static get(url, body) {
         return this.request(url, 'get', body);
@@ -10,19 +12,18 @@ export default class Http {
     }
 
     static request(url, method, body) {
-        let isOk;
         return new Promise((resolve, reject) => {
-            fetch(this.HOST + url, {
+            fetch(HOST + url, {
                 method,
                 headers: {
-                    apikey: 'e16ab1af8f585be209b60982365d4f35'
+                    apikey: 'f97e5c72da654fa21d7cd4207c9f6f5a'
                 },
                 body
-            }).then((response) => {
-                isOk = !!response.ok;
-                return response.json();
-            }).then((responseData) => {
-                isOk ? resolve(responseData) : reject(responseData);
+            }).then((response) => response.json())
+            .then((responseData) => {
+                resolve(responseData); 
+            }, (responseData) => {
+                reject(responseData);
             }).catch((error) => {
                 reject(error);
             });

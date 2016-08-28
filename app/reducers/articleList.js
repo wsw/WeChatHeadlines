@@ -30,6 +30,7 @@ export default function articleList(state = initialSate, action) {
         case FETCH_ARTICLES_DATA_STATUS.SUCCESS:
             let newContent = action.opt === 2 ? [...state.data, ...action.data] : action.data;
             let isLoadMore = action.data.length === 20;
+            console.log(newContent);
             return {
                 ...state,
                 status: action.type,
