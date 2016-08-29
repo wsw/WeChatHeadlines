@@ -2,14 +2,12 @@ import { FETCH_ARTICLES_DATA_STATUS } from '../constants/ActionTypes';
 import Http from '../utils/Http';
 import { WEXIN_ARTICLE_LIST } from '../constants/Urls';
 
-
 function fetchArticles(typeObj, categoryId, opt, pageNo, ext) {
-    console.log(...arguments);
+    
     return dispatch => {
         dispatch({type: typeObj.START, opt: opt});
         return Http.get(`${WEXIN_ARTICLE_LIST}?typeId=${categoryId}&page=${pageNo}`)
         .then((result) => {
-            console.log(result);
             dispatch({
                 type: typeObj.SUCCESS,
                 opt, ext, 
