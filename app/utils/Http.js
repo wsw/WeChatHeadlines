@@ -19,13 +19,19 @@ export default class Http {
                     apikey: 'f97e5c72da654fa21d7cd4207c9f6f5a'
                 },
                 body
-            }).then((response) => response.json())
-            .then((responseData) => {
-                resolve(responseData); 
-            }, (responseData) => {
-                reject(responseData);
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    reject({title: response.statusText});
+                }
+            }).then((responseData) => {
+                if (responseData.errNum) {
+                    reject({title: responseData.errText});
+                }
+                resolve(responseData);
             }).catch((error) => {
-                reject(error);
+                reject({title: '网络请求失败，请重试!'});
             });
         })
     }

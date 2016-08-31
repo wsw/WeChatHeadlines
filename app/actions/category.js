@@ -11,7 +11,7 @@ function fetchCategory(typeObj) {
                 type: typeObj.SUCCESS,
                 data: result.showapi_res_body.typeList
             });
-        }).catch((error) => {
+        }, (error) => {
             dispatch({
                 type: typeObj.FAILURE,
                 error
