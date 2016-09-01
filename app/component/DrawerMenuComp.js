@@ -12,4 +12,5 @@ class DrawerMenuComp extends React.Component {
             </View>
         )
     }
+    
 }
