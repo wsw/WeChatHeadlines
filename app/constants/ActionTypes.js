@@ -15,7 +15,7 @@ export const FETCH_CATEGORYS_DATA_STATUS = {
     FAILURE: 'fetch_categorys_data_failure'
 }
 
-export const HOME_TABS = {
+export const SIDE_LEFT_TABS = {
     HOME: 'home',
     CATEGORY: 'category'
 }
