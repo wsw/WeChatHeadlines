@@ -16,6 +16,13 @@ class RootNavigator extends React.Component {
         this.renderScene = this.renderScene.bind(this);
     }
 
+    getChildContext() {
+        return {
+            addBackButtonListener: this.addBackButtonListener,
+            removeBackButtonListener: this.removeBackButtonListener
+        }
+    }
+
     componentDidMount() {
         BackAndroid.addEventListener('hardwareBackPress', this.onBack);
     }
@@ -85,13 +92,6 @@ class RootNavigator extends React.Component {
 RootNavigator.childContextTypes = {
     addBackButtonListener: React.PropTypes.func,
     removeBackButtonListener: React.PropTypes.func
-};
-
-RootNavigator.getChildContext = () => {
-    return {
-        addBackButtonListener: this.addBackButtonListener,
-        removeBackButtonListener: this.removeBackButtonListener
-    }
 };
 
 export default RootNavigator;

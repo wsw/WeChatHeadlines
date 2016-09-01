@@ -4,11 +4,15 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { SIDE_LEFT_TABS } from '../constants/ActionTypes';
-import DrawerMenuComp from '../components/DrawerMenuComp';
+import DrawerMenuComp from '../component/DrawerMenuComp';
+import HomePage from './HomePage';
+import CategoryPage from './CategoryPage';
 
 class MainPage extends React.Component {
     constructor(props, context) {
         super(props, context);
+        
+        console.log(this.context);
 
         this.state = {
             curSelTag: SIDE_LEFT_TABS.HOME
@@ -33,7 +37,7 @@ class MainPage extends React.Component {
                 ref={drawer => this.drawer = drawer}
                 drawerWidth={280}
                 drawerPosition={DrawerLayoutAndroid.positions.left}
-                renderNavigatorView={this.renderDrawerMenuView}
+                renderNavigationView={this.renderDrawerMenuView}
                 onDrawerClose={this.onDrawerClose}
                 onDrawerOpen={this.onDrawerOpen} >
                 <Navigator 
@@ -111,6 +115,5 @@ MainPage.contextTypes = {
     addBackButtonListener: React.PropTypes.func,
     removeBackButtonListener: React.PropTypes.func
 };
-
 
 export default MainPage;
