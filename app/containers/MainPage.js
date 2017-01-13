@@ -106,7 +106,7 @@ class MainPage extends React.Component {
     renderDrawerMenuView() {
         return  <DrawerMenuComp 
                     tab={this.state.tab}
-                    onTabSelect={tab => this.onTabSelect(tab)}
+                    onTabSelect={tab => this.onTabSelect.bind(this, tab)}
                 />; 
     }
 }
